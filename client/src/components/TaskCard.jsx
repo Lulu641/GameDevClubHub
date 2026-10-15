@@ -1,18 +1,25 @@
-function TaskCard({ title, description, completed, onToggle }) {
+function TaskCard({ title, description, status, effortPoints, onToggle, onRemove }) {
+  const completed = status === 'Completed'
   return (
-    <li>
+    <li className={completed ? 'task-card is-complete' : 'task-card'}>
       <div>
         <h3>{title}</h3>
         <p className="task-description">{description}</p>
-        <p>{completed ? 'Complete' : 'Not started'}</p>
+        <p>{status} · {effortPoints} effort points</p>
       </div>
-      <button
-        type="button"
-        aria-label={`${completed ? 'Reopen' : 'Mark complete'}: ${title}`}
-        onClick={onToggle}
-      >
-        {completed ? 'Reopen' : 'Mark complete'}
-      </button>
+      <div className="task-actions">
+        <button
+          type="button"
+          aria-label={`${completed ? 'Reopen' : 'Mark complete'}: ${title}`}
+          aria-pressed={completed}
+          onClick={onToggle}
+        >
+          {completed ? 'Reopen' : 'Mark complete'}
+        </button>
+        <button type="button" className="secondary" aria-label={`Remove: ${title}`} onClick={onRemove}>
+          Remove
+        </button>
+      </div>
     </li>
   )
 }

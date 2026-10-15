@@ -1,8 +1,8 @@
 import TaskCard from '../components/TaskCard.jsx'
+import TaskForm from '../components/TaskForm.jsx'
+import TaskSummary from '../components/TaskSummary.jsx'
 
-function Tasks({ tasks, onToggleTask }) {
-  const completedCount = tasks.filter((task) => task.completed).length
-
+function Tasks({ tasks, onToggleTask, onAddTask, onRemoveTask }) {
   return (
     <>
       <header>
@@ -11,20 +11,25 @@ function Tasks({ tasks, onToggleTask }) {
         <p>Small steps toward our next playable game.</p>
       </header>
 
+      <TaskSummary tasks={tasks} />
+      <TaskForm onAddTask={onAddTask} />
       <section aria-labelledby="tasks-heading">
         <h2 id="tasks-heading">This week's tasks</h2>
-        <p role="status">{completedCount} of {tasks.length} tasks complete</p>
-        <ul className="task-list">
+        {tasks.length === 0 ? (
+          <p className="empty-state">No tasks yet. Add your first task to get started.</p>
+        ) : <ul className="task-list">
           {tasks.map((task) => (
             <TaskCard
               key={task.id}
               title={task.title}
               description={task.description}
-              completed={task.completed}
+              status={task.status}
+              effortPoints={task.effortPoints}
               onToggle={() => onToggleTask(task.id)}
+              onRemove={() => onRemoveTask(task.id)}
             />
           ))}
-        </ul>
+        </ul>}
         <p className="note">Demo tasks reset when you refresh the page.</p>
       </section>
     </>

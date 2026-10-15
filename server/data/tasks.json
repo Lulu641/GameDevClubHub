@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "title": "Create player movement",
+    "description": "Add walking and jumping controls, then check that the player stays inside the level.",
+    "status": "Not started",
+    "effortPoints": 5
+  },
+  {
+    "id": 2,
+    "title": "Design the main menu",
+    "description": "Create a title screen with Play and Instructions buttons that are easy to find.",
+    "status": "Not started",
+    "effortPoints": 3
+  },
+  {
+    "id": 3,
+    "title": "Test the first level",
+    "description": "Play through the level and write down any bugs that stop a player from finishing.",
+    "status": "Not started",
+    "effortPoints": 2
+  },
+  {
+    "id": 4,
+    "title": "Draw a character sprite",
+    "description": "Make an original character sprite and export it with a transparent background.",
+    "status": "Not started",
+    "effortPoints": 5
+  },
+  {
+    "id": 5,
+    "title": "Prepare the club playtest",
+    "description": "Share the game build with club members and collect one improvement from each tester.",
+    "status": "Not started",
+    "effortPoints": 3
+  }
+]
