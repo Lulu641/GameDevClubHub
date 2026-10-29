@@ -23,6 +23,9 @@ p { margin: 0; }
 .task-summary dd { margin: 6px 0 0; font-size: 1.8rem; font-weight: 700; }
 .task-form { display: grid; gap: 10px; background: white; border: 1px solid #ddd6e9; border-radius: 10px; padding: 24px; margin-bottom: 32px; }
 .task-form label { font-weight: 600; }
+.task-form fieldset { display: grid; gap: 10px; border: 0; padding: 0; margin: 0; min-width: 0; }
+progress { display: block; width: 100%; margin: 8px 0 24px; accent-color: #6340aa; }
+button:disabled { opacity: 0.65; cursor: wait; }
 input, textarea { width: 100%; min-width: 0; border: 1px solid #82778f; border-radius: 6px; padding: 10px; font: inherit; color: inherit; background: white; }
 textarea { resize: vertical; }
 .task-form button { justify-self: start; margin-top: 8px; }

@@ -1,5 +1,5 @@
 {
-  "name": "gamedevclubhub-api",
+  "name": "jamtrack-api",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,5 +9,8 @@
   },
   "dependencies": {
     "express": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=24.0.0"
   }
 }

@@ -1,9 +1,9 @@
 function About() {
   return (
     <header>
-      <p className="eyebrow">Game Development Club</p>
+      <p className="eyebrow">JamTrack</p>
       <h1>About</h1>
-      <p>GameDevClubHub helps our club organize the work of making and publishing games.</p>
+      <p>JamTrack helps game developers organize tasks, save their work, and track completion.</p>
     </header>
   )
 }

@@ -3,13 +3,15 @@ import { Link, Route, Routes } from 'react-router'
 import Dashboard from './pages/Dashboard.jsx'
 import Tasks from './pages/Tasks.jsx'
 import About from './pages/About.jsx'
-import { fetchTasks } from './api/tasks.js'
+import { fetchTasks, createTask, setTaskCompletion, deleteTask } from './api/tasks.js'
 import './App.css'
 
 function App() {
   const [tasks, setTasks] = useState([])
   const [loadState, setLoadState] = useState('loading')
   const [loadAttempt, setLoadAttempt] = useState(0)
+  const [busy, setBusy] = useState(false)
+  const [actionError, setActionError] = useState('')
 
   useEffect(() => {
     const controller = new AbortController()
@@ -41,26 +43,42 @@ function App() {
     </div>
   )
 
-  function addTask(task) {
-    setTasks((currentTasks) => [
-      ...currentTasks,
-      { ...task, id: crypto.randomUUID(), status: 'Not started' },
-    ])
+  async function addTask(task) {
+    setBusy(true)
+    setActionError('')
+    try {
+      const saved = await createTask(task)
+      setTasks((currentTasks) => [...currentTasks, saved])
+    } finally {
+      setBusy(false)
+    }
   }
 
-  function removeTask(id) {
-    setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id))
+  async function removeTask(id) {
+    setBusy(true)
+    setActionError('')
+    try {
+      await deleteTask(id)
+      setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id))
+    } catch (error) {
+      setActionError(error.message || 'Could not remove the task.')
+    } finally {
+      setBusy(false)
+    }
   }
 
-  function toggleTask(id) {
-    // Replace the array and the changed object instead of mutating state.
-    setTasks((currentTasks) =>
-      currentTasks.map((task) =>
-        task.id === id
-          ? { ...task, status: task.status === 'Completed' ? 'Not started' : 'Completed' }
-          : task,
-      ),
-    )
+  async function toggleTask(id) {
+    const task = tasks.find((current) => current.id === id)
+    setBusy(true)
+    setActionError('')
+    try {
+      const saved = await setTaskCompletion(id, !task.completed)
+      setTasks((currentTasks) => currentTasks.map((current) => current.id === id ? saved : current))
+    } catch (error) {
+      setActionError(error.message || 'Could not update the task.')
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (
@@ -70,11 +88,14 @@ function App() {
         <Link to="/tasks">Tasks</Link>
         <Link to="/about">About</Link>
       </nav>
+      {actionError && <p role="alert">{actionError}</p>}
 
       <Routes>
-        <Route path="/" element={loadState === 'ready' ? <Dashboard tasks={tasks} /> : taskFeedback} />
+        <Route path="/" element={loadState === 'ready' ? (
+          <Dashboard tasks={tasks} onToggleTask={toggleTask} onRemoveTask={removeTask} busy={busy} />
+        ) : taskFeedback} />
         <Route path="/tasks" element={loadState === 'ready' ? (
-          <Tasks tasks={tasks} onToggleTask={toggleTask} onAddTask={addTask} onRemoveTask={removeTask} />
+          <Tasks tasks={tasks} onToggleTask={toggleTask} onAddTask={addTask} onRemoveTask={removeTask} busy={busy} />
         ) : taskFeedback} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<h1>Page not found</h1>} />

@@ -10,6 +10,8 @@ function TaskSummary({ tasks }) {
         <div><dt>Remaining tasks</dt><dd>{tasks.length - completed}</dd></div>
         <div><dt>Effort points</dt><dd>{effort}</dd></div>
       </dl>
+      <label htmlFor="task-progress">{completed} of {tasks.length} tasks complete</label>
+      <progress id="task-progress" value={completed} max={Math.max(tasks.length, 1)} aria-label="Task completion" aria-valuetext={`${completed} of ${tasks.length} tasks complete`} />
     </section>
   )
 }

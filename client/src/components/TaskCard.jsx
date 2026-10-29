@@ -1,4 +1,4 @@
-function TaskCard({ title, description, status, effortPoints, onToggle, onRemove }) {
+function TaskCard({ title, description, status, effortPoints, onToggle, onRemove, busy }) {
   const completed = status === 'Completed'
   return (
     <li className={completed ? 'task-card is-complete' : 'task-card'}>
@@ -12,11 +12,12 @@ function TaskCard({ title, description, status, effortPoints, onToggle, onRemove
           type="button"
           aria-label={`${completed ? 'Reopen' : 'Mark complete'}: ${title}`}
           aria-pressed={completed}
+          disabled={busy}
           onClick={onToggle}
         >
           {completed ? 'Reopen' : 'Mark complete'}
         </button>
-        <button type="button" className="secondary" aria-label={`Remove: ${title}`} onClick={onRemove}>
+        <button type="button" className="secondary" aria-label={`Remove: ${title}`} onClick={onRemove} disabled={busy}>
           Remove
         </button>
       </div>
