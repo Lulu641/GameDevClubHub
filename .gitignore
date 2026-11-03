@@ -1,0 +1,18 @@
+# Dependencies and generated output
+node_modules/
+dist/
+dist-ssr/
+coverage/
+# Local configuration
+.env
+.env.*
+!.env.example
+*.local
+# Logs and system files
+*.log
+.DS_Store
+# Persistent local SQLite data
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
