@@ -1,11 +1,13 @@
+import Icon from './Icon.jsx'
+
 function TaskCard({ title, description, status, effortPoints, onToggle, onRemove, busy }) {
   const completed = status === 'Completed'
   return (
     <li className={completed ? 'task-card is-complete' : 'task-card'}>
-      <div>
+      <div className="task-card-content">
+        <p className="task-meta"><span className={`status-badge ${completed ? 'done' : ''}`}>{completed && <Icon name="check" size={13} />}{status}</span><span className="effort-badge"><Icon name="bolt" size={14} />{effortPoints} effort points</span></p>
         <h3>{title}</h3>
-        <p className="task-description">{description}</p>
-        <p>{status} · {effortPoints} effort points</p>
+        {description && <p className="task-description">{description}</p>}
       </div>
       <div className="task-actions">
         <button
@@ -15,10 +17,10 @@ function TaskCard({ title, description, status, effortPoints, onToggle, onRemove
           disabled={busy}
           onClick={onToggle}
         >
-          {completed ? 'Reopen' : 'Mark complete'}
+          <Icon name={completed ? 'reopen' : 'check'} size={16} />{completed ? 'Reopen' : 'Mark complete'}
         </button>
-        <button type="button" className="secondary" aria-label={`Remove: ${title}`} onClick={onRemove} disabled={busy}>
-          Remove
+        <button type="button" className="remove-button" aria-label={`Remove: ${title}`} onClick={onRemove} disabled={busy}>
+          <Icon name="trash" size={16} />Remove
         </button>
       </div>
     </li>

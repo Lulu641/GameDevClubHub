@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Icon from './Icon.jsx'
 
 function TaskForm({ onAddTask, busy }) {
   const [title, setTitle] = useState('')
@@ -41,19 +42,19 @@ function TaskForm({ onAddTask, busy }) {
 
   return (
     <form className="task-form" aria-labelledby="add-task-heading" aria-describedby={error ? 'task-form-error' : undefined} onSubmit={handleSubmit} noValidate>
-      <h2 id="add-task-heading">Add a task</h2>
+      <div className="form-heading"><span className="feature-icon"><Icon name="plus" /></span><div><h2 id="add-task-heading">Add a task</h2><p>What's the next small win?</p></div></div>
       {error && <p id="task-form-error" role="alert">{error}</p>}
       <fieldset disabled={busy || submitting}>
       <label htmlFor="task-title">Task title</label>
-      <input id="task-title" value={title} onChange={(event) => setTitle(event.target.value)} maxLength={100} required />
+      <input id="task-title" placeholder="e.g. Add player jump controls" value={title} onChange={(event) => setTitle(event.target.value)} maxLength={100} required />
 
       <label htmlFor="task-description">Description (optional)</label>
-      <textarea id="task-description" value={description} onChange={(event) => setDescription(event.target.value)} maxLength={500} rows={3} />
+      <textarea id="task-description" placeholder="A note for when you pick this up…" value={description} onChange={(event) => setDescription(event.target.value)} maxLength={500} rows={3} />
 
       <label htmlFor="task-effort">Estimated effort points</label>
       <input id="task-effort" type="number" min="1" max="100" step="1" value={effortPoints} onChange={(event) => setEffortPoints(event.target.value)} aria-describedby="effort-help" required />
-      <p id="effort-help" className="note">Choose a whole number from 1 to 100.</p>
-      <button type="submit">{submitting ? 'Saving…' : 'Add task'}</button>
+      <p id="effort-help" className="note">Use 1–100 points to estimate the task's size.</p>
+      <button type="submit" className="button-primary"><Icon name="plus" size={18} />{submitting ? 'Saving…' : 'Add task'}</button>
       </fieldset>
     </form>
   )

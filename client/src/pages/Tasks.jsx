@@ -5,18 +5,18 @@ import TaskSummary from '../components/TaskSummary.jsx'
 function Tasks({ tasks, onToggleTask, onAddTask, onRemoveTask, busy }) {
   return (
     <>
-      <header>
-        <p className="eyebrow">JamTrack</p>
-        <h1>Tasks</h1>
-        <p>Small steps toward our next playable game.</p>
+      <header className="page-heading">
+        <div><p className="eyebrow">MAKE THE NEXT MOVE</p><h1>Tasks</h1><p>Break down the big idea. Build one small piece at a time.</p></div>
       </header>
       <TaskSummary tasks={tasks} />
+      <div className="tasks-layout">
       <TaskForm onAddTask={onAddTask} busy={busy} />
-      <section aria-labelledby="tasks-heading">
-        <h2 id="tasks-heading">Saved tasks</h2>
+      <section className="task-collection" aria-labelledby="tasks-heading">
+        <div className="collection-heading"><h2 id="tasks-heading">Saved tasks</h2><span className="count-badge">{tasks.length}</span></div>
         <TaskList tasks={tasks} onToggleTask={onToggleTask} onRemoveTask={onRemoveTask} busy={busy} />
-        <p className="note">Tasks and completion changes are saved to SQLite.</p>
+        <p className="note">Changes are saved with your project.</p>
       </section>
+      </div>
     </>
   )
 }

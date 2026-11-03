@@ -1,8 +1,9 @@
 import TaskCard from './TaskCard.jsx'
+import Icon from './Icon.jsx'
 
 function TaskList({ tasks, onToggleTask, onRemoveTask, busy }) {
   if (tasks.length === 0) {
-    return <p className="empty-state">No tasks yet. Add your first task to get started.</p>
+    return <div className="empty-state"><span className="feature-icon"><Icon name="flag" size={24} /></span><h3>Your next build starts here.</h3><p>No tasks yet. Add your first task to get started.</p></div>
   }
 
   return (

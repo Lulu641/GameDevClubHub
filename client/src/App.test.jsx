@@ -66,7 +66,8 @@ describe('JamTrack core task workflow', () => {
     for (const task of fixtures) {
       const card = screen.getByRole('heading', { name: task.title }).closest('li')
       expect(within(card).getByText(task.description)).toBeTruthy()
-      expect(within(card).getByText(`${task.status} · ${task.effortPoints} effort points`)).toBeTruthy()
+      expect(within(card).getByText(task.status)).toBeTruthy()
+      expect(within(card).getByText(`${task.effortPoints} effort points`)).toBeTruthy()
     }
     expect(summary('Total tasks')).toBe(5)
     expect(summary('Effort points')).toBe(18)
